@@ -35,5 +35,33 @@ public class MovieService {
     }
 
 
+    public Movie updateMovie(long id, Movie movie) {
+
+        // Getting the ID of the movie to update, we've already checked it exists
+        Movie existingMovie = movieRepository.getById(id);
+
+        // check if the given field is empty, if it's present then update it
+        if (movie.getTitle() != null) {
+            existingMovie.setTitle(movie.getTitle());
+        }
+
+        if (movie.getRating() != null) {
+            existingMovie.setRating(movie.getRating());
+        }
+
+        if (!(movie.getDuration() == 0)) {
+            existingMovie.setDuration(movie.getDuration());
+        }
+
+        // Updates the movie
+        return movieRepository.save(existingMovie);
+    }
+
+
+    public void deleteMovie(long id) {
+        movieRepository.deleteById(id);
+    }
+
+
 }
 
